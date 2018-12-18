@@ -1,0 +1,14 @@
+C:\development\HackDay\wwwapi\wwwapi\obj\Debug\netcoreapp2.1\wwwapi.csproj.CoreCompileInputs.cache
+C:\development\HackDay\wwwapi\wwwapi\obj\Debug\netcoreapp2.1\wwwapi.AssemblyInfoInputs.cache
+C:\development\HackDay\wwwapi\wwwapi\obj\Debug\netcoreapp2.1\wwwapi.AssemblyInfo.cs
+C:\development\HackDay\wwwapi\wwwapi\bin\Debug\netcoreapp2.1\wwwapi.deps.json
+C:\development\HackDay\wwwapi\wwwapi\bin\Debug\netcoreapp2.1\wwwapi.runtimeconfig.json
+C:\development\HackDay\wwwapi\wwwapi\bin\Debug\netcoreapp2.1\wwwapi.runtimeconfig.dev.json
+C:\development\HackDay\wwwapi\wwwapi\bin\Debug\netcoreapp2.1\wwwapi.dll
+C:\development\HackDay\wwwapi\wwwapi\bin\Debug\netcoreapp2.1\wwwapi.pdb
+C:\development\HackDay\wwwapi\wwwapi\obj\Debug\netcoreapp2.1\wwwapi.csprojAssemblyReference.cache
+C:\development\HackDay\wwwapi\wwwapi\obj\Debug\netcoreapp2.1\wwwapi.RazorAssemblyInfo.cache
+C:\development\HackDay\wwwapi\wwwapi\obj\Debug\netcoreapp2.1\wwwapi.RazorAssemblyInfo.cs
+C:\development\HackDay\wwwapi\wwwapi\obj\Debug\netcoreapp2.1\wwwapi.RazorTargetAssemblyInfo.cache
+C:\development\HackDay\wwwapi\wwwapi\obj\Debug\netcoreapp2.1\wwwapi.dll
+C:\development\HackDay\wwwapi\wwwapi\obj\Debug\netcoreapp2.1\wwwapi.pdb
