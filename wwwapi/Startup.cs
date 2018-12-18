@@ -31,7 +31,7 @@ namespace wwwapi
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
 			app.UseCors(builder =>
-			builder.WithOrigins("http://localhost:32667", "http://localhost:3000")
+			builder.WithOrigins("http://localhost:3000")
 				.AllowAnyHeader()
 				.AllowAnyMethod()
 				.AllowAnyOrigin());
