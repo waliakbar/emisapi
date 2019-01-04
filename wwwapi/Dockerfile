@@ -1,19 +1,23 @@
-FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
+FROM microsoft/dotnet:sdk AS build-env
 WORKDIR /app
-EXPOSE 80
 
-FROM microsoft/dotnet:2.1-sdk AS build
-WORKDIR /src
-COPY ["wwwapi/wwwapi.csproj", "wwwapi/"]
-RUN dotnet restore "wwwapi/wwwapi.csproj"
-COPY . .
-WORKDIR "/src/wwwapi"
-RUN dotnet build "wwwapi.csproj" -c Release -o /app
+# Copy csproj and restore as distinct layers
+COPY ./wwwapi/*.csproj ./
+RUN dotnet restore
 
-FROM build AS publish
-RUN dotnet publish "wwwapi.csproj" -c Release -o /app
+# Copy everything else and build
+COPY ./wwwapi/ ./
+RUN dotnet publish -c Release -o out
 
-FROM base AS final
+# Build runtime image
+FROM microsoft/dotnet:aspnetcore-runtime
 WORKDIR /app
-COPY --from=publish /app .
+COPY --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "wwwapi.dll"]
+
+EXPOSE 5000
+
+#Install-package Newtonsoft.Json
+
+#	docker build -t wwwapi .
+#	docker run -it -p 5000:80 wwwapi
