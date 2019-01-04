@@ -11,6 +11,9 @@ namespace wwwapi.Controllers
 		public string Username { get; set; }
 		public string Password { get; set; }
 
+		public UserCredential()
+		{ }
+
 		public UserCredential(int userId, string username, string password)
 		{
 			UserId = userId;

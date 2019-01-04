@@ -13,86 +13,84 @@ namespace wwwapi.Controllers
 	//[ApiController]
 	public class ValuesController : ControllerBase
 	{
+		private NpgsqlConnection Connect()
+		{
+			string host = "emishub.cg3kjlgbazsc.eu-west-2.rds.amazonaws.com";
+			string port = "5432";
+			string username = "emishub";
+			string password = "emishub1";
+			string database = "emishub";
+
+			string connstring = String.Format("Server={0};Port={1};" +
+				"User Id={2};Password={3};Database={4};",
+				host,
+				port,
+				username,
+				password,
+				database);
+
+			NpgsqlConnection conn = new NpgsqlConnection(connstring);
+
+			return conn;
+		}
+
 		[Route("api/GetAllUsers/")]
 		public string GetAllUsers()
 		{
 			List<UserCredential> data = new List<UserCredential>();
 			try
 			{
-				string host = "emisim.cltgabhpvgji.eu-west-2.rds.amazonaws.com";
-				string port = "5432";
-				string username = "emisim";
-				string password = "emisim1234";
-				string database = "emisim";
+				NpgsqlConnection connection = Connect();
 
-				string connstring = String.Format("Server={0};Port={1};" +
-					"User Id={2};Password={3};Database={4};",
-					host,
-					port,
-					username,
-					password,
-					database);
-
-				NpgsqlConnection conn = new NpgsqlConnection(connstring);
-				conn.Open();
+				connection.Open();
 
 				DataSet ds = new DataSet();
 
-				string sql = "SELECT * FROM public.\"UserCredential\"";
+				string sql = "SELECT * FROM public.\"Users\"";
 
-				NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
+				NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, connection);
 				ds.Reset();
 				da.Fill(ds);
 
 				foreach (DataRow dataRow in ds.Tables[0].Rows)
 					data.Add(new UserCredential(Convert.ToInt32(dataRow[0]), dataRow[1].ToString(), dataRow[2].ToString()));
 
-				conn.Close();
+				connection.Close();
 			}
-			catch (Exception) { }
+			catch (Exception exception)
+			{
+				Console.WriteLine(exception);
+			}
 
 			return JsonConvert.SerializeObject(data);
 		}
 
 		[Route("api/GetUsers/")]
-		public string GetUsers([FromBody] Value buildRequest)
+		public string GetUsers([FromBody] Value user)
 		{
-			List<UserCredential> data = new List<UserCredential>();
+			UserCredential data = new UserCredential();
 
 			try
 			{
-				// PostgeSQL-style connection string
-				string host = "patientim.cyhzxi7igwch.eu-west-2.rds.amazonaws.com";
-				string port = "5432";
-				string username = "patientim";
-				string password = "patientim";
-				string database = "patientim";
+				NpgsqlConnection connection = Connect();
 
-				string connstring = String.Format("Server={0};Port={1};" +
-					"User Id={2};Password={3};Database={4};",
-					host,
-					port,
-					username,
-					password,
-					database);
-
-				NpgsqlConnection conn = new NpgsqlConnection(connstring);
-				conn.Open();
+				connection.Open();
 
 				DataSet ds = new DataSet();
 
-				string sql = "SELECT * FROM public.\"Message\"";
+				string sql = "SELECT * FROM public.\"Users\"";
 
-				NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
+				NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, connection);
 				ds.Reset();
 				da.Fill(ds);
 
 				foreach (DataRow dataRow in ds.Tables[0].Rows)
 				{
-					data.Add(new UserCredential(Convert.ToInt32(dataRow[0]), dataRow[1].ToString(), dataRow[2].ToString()));
+					if (dataRow[1].ToString().Equals(user.username) && dataRow[1].ToString().Equals(user.password))
+						data = new UserCredential(Convert.ToInt32(dataRow[0]), dataRow[1].ToString(), dataRow[2].ToString());
 				}
 
-				conn.Close();
+				connection.Close();
 			}
 			catch (Exception ex)
 			{
