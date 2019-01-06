@@ -21,3 +21,6 @@ EXPOSE 5000
 
 #	docker build -t wwwapi .
 #	docker run -it -p 5000:80 wwwapi
+
+#	To run in background
+#	docker run -d -p 5000:80 wwwapi 
